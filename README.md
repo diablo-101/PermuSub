@@ -12,7 +12,7 @@ The Subdomain Permutation Tool is a Python script designed to generate permutati
 To use the Subdomain Permutation Tool, follow these steps:
 1. Clone the repository to your local machine.
    ```
-   git clone https://github.com/example/repository.git
+   git clone https://github.com/diiablo00/PermuSub.git
    ```
 3. Install the required Python dependencies by running:
    ```
