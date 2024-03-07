@@ -38,6 +38,7 @@ python permuSub.py -s test.example.com -f wordlist.txt
 ## Files
 - `permuSub.py`: The Python script for generating subdomain permutations.
 - `requirements.txt`: A text file containing the required Python dependencies.
+- `word.txt`: File contains a list of words. These words are used to generate permutations.
 
 
 ## Acknowledgments
