@@ -31,7 +31,7 @@ To use the Subdomain Permutation Tool, follow these steps:
 ## Example
 Here's an example command to generate subdomain permutations:
 ```
-python permuSub.py -s test.example.com -f wordlist.txt
+python permuSub.py -d test.example.com -w wordlist.txt -o output.txt
 ```
 
 ## Requirements
