@@ -1,6 +1,7 @@
 import itertools
 import requests
 import argparse
+from tqdm import tqdm
 
 def check_subdomain_exists(subdomain):
     url = f"http://{subdomain}"
@@ -24,19 +25,29 @@ def generate_subdomain_permutations(base_subdomain, words):
 
 def main():
     parser = argparse.ArgumentParser(description='Subdomain Permutation Tool')
-    parser.add_argument('-s', '--subdomain', required=True, help='Base subdomain (e.g., test.domin.com)')
-    parser.add_argument('-f', '--wordlist', required=True, help='File containing words to permute')
+    parser.add_argument('-d', '--domain', required=True, help='Base domain (e.g., test.domain.com)')
+    parser.add_argument('-w', '--wordlist', required=True, help='File containing words to permute')
+    parser.add_argument('-o', '--output', help='File to save the output')
     args = parser.parse_args()
 
     with open(args.wordlist, 'r') as file:
         words = file.read().splitlines()
 
-    permutations = generate_subdomain_permutations(args.subdomain, words)
+    permutations = generate_subdomain_permutations(args.domain, words)
 
-    for perm in permutations:
-        exists, status_code = check_subdomain_exists(perm)
-        if exists:
-            print(f"{perm} - Status code: {status_code}")
+    if args.output:
+        with open(args.output, 'w') as output_file:
+            progress_bar = tqdm(permutations, desc="Checking subdomains", unit="subdomain")
+            for perm in progress_bar:
+                exists, status_code = check_subdomain_exists(perm)
+                if exists:
+                    output_file.write(f"{perm} - Status code: {status_code}\n")
+    else:
+        progress_bar = tqdm(permutations, desc="Checking subdomains", unit="subdomain")
+        for perm in progress_bar:
+            exists, status_code = check_subdomain_exists(perm)
+            if exists:
+                print(f"{perm} - Status code: {status_code}")
 
 if __name__ == "__main__":
     main()
